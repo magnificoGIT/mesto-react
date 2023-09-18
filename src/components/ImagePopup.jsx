@@ -31,7 +31,7 @@ export default function ImagePopup(props) {
             className="popup__image"
           />
           <figcaption>
-            <h2 className="popup__image-subtitle"></h2>
+            <h2 className="popup__image-subtitle">{props.card ? props.card.name : ""}</h2>
           </figcaption>
         </figure>
       </div>
