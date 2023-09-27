@@ -54,8 +54,8 @@ class Api {
   // Добавить новую карточку на сервер
   addNewCard(data) {
     return this._request("/cards", "POST", {
-      name: data.title,
-      link: data.url,
+      name: data.name,
+      link: data.link,
     });
   }
 
