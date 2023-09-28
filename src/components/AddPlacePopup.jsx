@@ -1,25 +1,32 @@
 import PopupWithForm from "./PopupWithForm";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
-export default function AddPlacePopup(props) {
+export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const cardNameRef = useRef();
   const cardLinkRef = useRef();
 
   const handleAddPlaceSubmit = (evt) => {
     evt.preventDefault();
 
-    props.onAddPlace({
+    onAddPlace({
       name: cardNameRef.current.value,
       link: cardLinkRef.current.value,
     });
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      cardNameRef.current.value = "";
+      cardLinkRef.current.value = "";
+    }
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       name="add"
       title="Новое место"
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleAddPlaceSubmit}
       buttonName="create"
       buttonText="Создать"

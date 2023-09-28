@@ -1,11 +1,9 @@
 import iconClose from "../images/popup__button-icon_close.svg";
 
 // Компонент ImagePopup который отвечает за отображение увеличенного изображения при клике на карточку.
-export default function ImagePopup(props) {
+export default function ImagePopup({ name, card, onClose }) {
   return (
-    <div
-      className={`popup popup-${props.name} ${props.card && "popup_active"}`}
-    >
+    <div className={`popup popup-${name} ${card ? "popup_active" : ""}`}>
       {/* Контейнер для внутреннего содержания попапа */}
       <div className="popup__container popup__container_type_image">
         {/* Кнопка для закрытия попапа */}
@@ -13,7 +11,7 @@ export default function ImagePopup(props) {
           type="button"
           className="popup__button popup__button_type_close"
           aria-label="close"
-          onClick={props.onClose} // Обработчик клика по кнопке закрытия
+          onClick={onClose} // Обработчик клика по кнопке закрытия
         >
           {/* Иконка закрытия */}
           <img
@@ -26,14 +24,12 @@ export default function ImagePopup(props) {
         <figure className="popup__image-container">
           {/* Изображение */}
           <img
-            src={props.card ? props.card.link : ""}
-            alt={props.card ? props.card.name : ""}
+            src={card ? card.link : ""}
+            alt={card ? card.name : ""}
             className="popup__image"
           />
           <figcaption>
-            <h2 className="popup__image-subtitle">
-              {props.card ? props.card.name : ""}
-            </h2>
+            <h2 className="popup__image-subtitle">{card ? card.name : ""}</h2>
           </figcaption>
         </figure>
       </div>

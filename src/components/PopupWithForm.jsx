@@ -4,7 +4,9 @@ import iconClose from "../images/popup__button-icon_close.svg";
 export default function PopupWithForm(props) {
   return (
     <div
-      className={`popup popup-${props.name} ${props.isOpen && "popup_active"}`}
+      className={`popup popup-${props.name} ${
+        props.isOpen ? "popup_active" : ""
+      }`}
     >
       {/* Контейнер для всплывающего попапа */}
       <div className="popup__container">

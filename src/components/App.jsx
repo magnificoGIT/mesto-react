@@ -19,23 +19,14 @@ export default function App() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    api
-      .getsUserInfo()
-      .then((userData) => {
+    // Выполняем два асинхронных запроса и обрабатываем результаты с помощью Promise.all
+    Promise.all([api.getsUserInfo(), api.getsInitialCards()])
+      .then(([userData, dataCards]) => {
         setCurrentUser(userData);
-      })
-      .catch((err) => {
-        console.error(`Ошибка при получении данных о пользователе: ${err}`);
-      });
-
-    api
-      .getsInitialCards()
-      .then((dataCards) => {
-        // Устанавливаем карточки из ответа API
         setCards(dataCards);
       })
       .catch((err) => {
-        console.error(`Ошибка при загрузке карточек: ${err}`);
+        console.error(`Ошибка при получении данных: ${err}`);
       });
   }, []);
 
@@ -81,11 +72,11 @@ export default function App() {
       .updateUserInfo(data)
       .then((newData) => {
         setCurrentUser(newData);
+        closeAllPopups();
       })
       .catch((err) => {
         console.error(`Ошибка обновления данных о пользователе: ${err}`);
       });
-    closeAllPopups();
   };
 
   const handleCardLike = (card) => {
@@ -110,11 +101,11 @@ export default function App() {
       .updateAvatar(avatarData)
       .then((newAvatar) => {
         setCurrentUser(newAvatar);
+        closeAllPopups();
       })
       .catch((err) => {
         console.error(`Ошибка при обновлении аватара: ${err}`);
       });
-    closeAllPopups();
   };
 
   const handleAddPlaceSubmit = (data) => {
@@ -122,11 +113,11 @@ export default function App() {
       .addNewCard(data)
       .then((newCard) => {
         setCards([newCard, ...cards]);
+        closeAllPopups();
       })
       .catch((err) => {
         console.error(`Ошибка при добавлении карточки: ${err}`);
       });
-    closeAllPopups();
   };
 
   return (
